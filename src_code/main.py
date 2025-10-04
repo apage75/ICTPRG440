@@ -43,3 +43,34 @@ transformGdf = transformFromWgs84ToMGA2020Z56(FILE_PATH, EPSG=7856)
 print(transformGdf.head()) # prints first 5 rows of the geodataframe
 
 
+def exportGdfToGeoJson(gdf,OUTPUT_FOLDER_PATH): #geodataframe passed to the output file
+        """ This function will export the data to an output file as a string the file name created is output.GeoJson. 
+        Output folder is a string parameter. 
+        Nothing else is returned in the terminal"""
+                    
+        if isinstance(gdf,gpd.GeoDataFrame):
+            print(f"You have entered a Geodataframe")
+        else:
+            raise TypeError("You have not entered a Geodataframe")
+        
+
+        try:
+             fullOutputPathWithFileName = OUTPUT_FOLDER_PATH + "\\" + "output.GeoJson"   #defined a function for the pull output path to add the file name using Driver GeoJson to create a full file name and path string. 
+                
+        except Exception as e:
+            print("Error......................................................................\n", e)
+            fullOutputPathWithFileName = None  #in case of an error report file as none        
+        print(fullOutputPathWithFileName)   
+     
+        gdf.to_file(fullOutputPathWithFileName, driver="GeoJSON")
+   
+        return None
+ 
+gdftransformed = transformFromWgs84ToMGA2020Z56(FILE_PATH,EPSG=7856) #creates a variable to transform the Coordinate system to MGA2020Z56
+ 
+exportGdfToGeoJson(gdftransformed,OUTPUT_FOLDER_PATH)
+ 
+# Now we need a loop to show the spatial data, attribute table, row by row in the console. using a python looping method.
+ 
+ 
+
